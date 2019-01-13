@@ -6,6 +6,7 @@ const viewRepliesButtonSelector = 'span.ytd-comment-replies-renderer';
 const moreRepliesButtonSelector = 'paper-button.yt-next-continuation';
 const expanderSelector = '#expander';
 const commentBlockSelector = 'ytd-comment-renderer.ytd-comment-replies-renderer:last-of-type';
+const commentListSelector = 'ytd-comment-replies-renderer.ytd-comment-thread-renderer';
 
 const clickMoreReplies = target => {
   const clicker = setInterval(() => {
@@ -16,7 +17,7 @@ const clickMoreReplies = target => {
     } else {
       button.click();
     }
-    const lastReply = document.querySelector(commentBlockSelector);
+    const lastReply = target.closest(commentListSelector).querySelector(commentBlockSelector);
     if (lastReply) lastReply.scrollIntoView(false);
   }, 100);
 };
