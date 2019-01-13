@@ -1,6 +1,6 @@
 {
   "name": "youtube-comment-loader",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Automatic load of YouTube replies when expanding",
   "main": "content.js",
   "dependencies": {},

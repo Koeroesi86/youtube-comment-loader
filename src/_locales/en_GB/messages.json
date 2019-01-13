@@ -1,5 +1,8 @@
 {
   "extensionName": {
     "message": "YouTube Comment Loader"
+  },
+  "extensionDescription": {
+    "message": "Automatic load of YouTube replies"
   }
 }
