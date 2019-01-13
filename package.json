@@ -1,0 +1,16 @@
+{
+  "name": "youtube-comment-loader",
+  "version": "0.0.1",
+  "description": "Automatic load of YouTube replies when expanding",
+  "main": "content.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-zip": "^4.0.0"
+  },
+  "scripts": {
+    "dist": "gulp"
+  },
+  "author": "",
+  "license": "ISC"
+}
