@@ -5,21 +5,33 @@
 const viewRepliesButtonSelector = 'span.ytd-comment-replies-renderer';
 const moreRepliesButtonSelector = 'paper-button.yt-next-continuation';
 const expanderSelector = '#expander';
-const commentBlockSelector = 'ytd-comment-renderer.ytd-comment-replies-renderer:last-of-type';
+const commentBlockSelector = 'ytd-comment-renderer.ytd-comment-replies-renderer';
 const commentListSelector = 'ytd-comment-replies-renderer.ytd-comment-thread-renderer';
 
 const clickMoreReplies = target => {
-  const clicker = setInterval(() => {
+  let prevCount = 0;
+  const currentCommentList = target.closest(commentListSelector);
+  const updater = () => {
+    const commentBlocks = currentCommentList.querySelectorAll(commentBlockSelector);
+    const currentCount = commentBlocks.length;
+    if (prevCount !== currentCount) {
+      prevCount = currentCount;
+      const lastReply = commentBlocks[commentBlocks.length - 1];
+
+      if (lastReply) lastReply.scrollIntoView({
+        block: 'end',
+        behavior: 'smooth',
+        inline: 'nearest'
+      });
+    }
+
     const button = target.closest(expanderSelector).querySelector(moreRepliesButtonSelector);
 
-    if (!button) {
-      clearInterval(clicker);
-    } else {
+    if (button) {
       button.click();
     }
-    const lastReply = target.closest(commentListSelector).querySelector(commentBlockSelector);
-    if (lastReply) lastReply.scrollIntoView(false);
-  }, 100);
+  };
+  currentCommentList.addEventListener('DOMSubtreeModified', updater, false);
 };
 
 const listener = (e) => {
