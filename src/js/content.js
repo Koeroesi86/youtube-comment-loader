@@ -8,17 +8,27 @@ const expanderSelector = '#expander';
 const commentBlockSelector = 'ytd-comment-renderer.ytd-comment-replies-renderer';
 const commentListSelector = 'ytd-comment-replies-renderer.ytd-comment-thread-renderer';
 
+const isInViewport = element => {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+};
+
 const clickMoreReplies = target => {
   let prevCount = 0;
   const currentCommentList = target.closest(commentListSelector);
   const updater = () => {
     const commentBlocks = currentCommentList.querySelectorAll(commentBlockSelector);
     const currentCount = commentBlocks.length;
-    if (prevCount !== currentCount) {
+    if (prevCount < currentCount) {
       prevCount = currentCount;
       const lastReply = commentBlocks[commentBlocks.length - 1];
 
-      if (lastReply) lastReply.scrollIntoView({
+      if (lastReply && !isInViewport(lastReply)) lastReply.scrollIntoView({
         block: 'end',
         behavior: 'smooth',
         inline: 'nearest'
